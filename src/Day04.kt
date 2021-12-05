@@ -22,6 +22,7 @@ fun main() {
         first().indices.any { idx -> all { it[idx] == seen } } -> true
         else -> false
     }
+
     fun List<MutableList<Int>>.sumUnseen() = flatten().filterNot { it == seen }.sum()
 
     fun part1(input: String): Int {
