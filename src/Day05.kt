@@ -1,19 +1,13 @@
+import kotlin.math.sign
+
 typealias Field = Array<IntArray>
 
 fun main() {
     data class Point(val x: Int, val y: Int) {
         fun stepTo(to: Point): IntArray {
             val d = IntArray(2)
-            d[0] = when {
-                x < to.x -> 1
-                x > to.x -> -1
-                else -> 0
-            }
-            d[1] = when {
-                y < to.y -> 1
-                y > to.y -> -1
-                else -> 0
-            }
+            d[0] = (to.x - x).sign
+            d[1] = (to.y - y).sign
             return d
         }
 
