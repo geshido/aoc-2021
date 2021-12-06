@@ -1,31 +1,13 @@
 fun main() {
-    fun part1(input: List<String>): Int {
-        val fishes = input.first().split(",").map { it.toInt() }.toMutableList()
-        for (day in 1..80) {
-            val newFishes = mutableListOf<Int>()
-            for (idx in fishes.indices) {
-                when {
-                    fishes[idx] == 0 -> {
-                        newFishes.add(8)
-                        fishes[idx] = 6
-                    }
-                    else -> fishes[idx]--
-                }
-            }
-            fishes.addAll(newFishes)
-        }
-        return fishes.size
-    }
-
-    fun part2(input: List<String>): Long {
+    fun countFishes(input: List<Int>, numDays: Int): Long {
         val fishes = mutableMapOf<Int, Long>()
         (0..8).forEach { fishes[it] = 0 }
 
-        input.first().split(",").map { it.toInt() }.forEach { fish ->
+        input.forEach { fish ->
             fishes[fish] = (fishes[fish] ?: 0) + 1
         }
 
-        for (day in 1..256) {
+        for (day in 1..numDays) {
             val zeroed = fishes[0] ?: 0
 
             for (iter in 1..8) {
@@ -37,18 +19,25 @@ fun main() {
 
         return fishes.values.sum()
     }
+    fun part1(input: List<Int>): Long {
+        return countFishes(input, 80)
+    }
 
-    val testInput = readInput("Day06_test")
+    fun part2(input: List<Int>): Long {
+        return countFishes(input, 256)
+    }
+
+    val testInput = readInput("Day06_test").first().split(",").map { it.toInt() }
     part1(testInput).also {
         println("Part1 test: $it")
-        check(it == 5934)
+        check(it == 5934L)
     }
     part2(testInput).also {
         println("Part2 test: $it")
-        check(it == 26984457539)
+        check(it == 26984457539L)
     }
 
-    val input = readInput("Day06")
+    val input = readInput("Day06").first().split(",").map { it.toInt() }
     println("Part1: ${part1(input)}")
     println("Part2: ${part2(input)}")
 }
