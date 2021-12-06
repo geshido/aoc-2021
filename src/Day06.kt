@@ -1,24 +1,25 @@
 fun main() {
     fun countFishes(input: List<Int>, numDays: Int): Long {
-        val fishes = mutableMapOf<Int, Long>()
+        val fishes = LongArray(9) { 0 }
         (0..8).forEach { fishes[it] = 0 }
 
         input.forEach { fish ->
-            fishes[fish] = (fishes[fish] ?: 0) + 1
+            fishes[fish]++
         }
 
         for (day in 1..numDays) {
-            val zeroed = fishes[0] ?: 0
+            val zeroed = fishes[0]
 
             for (iter in 1..8) {
-                fishes[iter - 1] = (fishes[iter] ?: 0)
+                fishes[iter - 1] = fishes[iter]
             }
-            fishes[6] = (fishes[6] ?: 0) + zeroed
+            fishes[6] = fishes[6] + zeroed
             fishes[8] = zeroed
         }
 
-        return fishes.values.sum()
+        return fishes.sum()
     }
+
     fun part1(input: List<Int>): Long {
         return countFishes(input, 80)
     }
