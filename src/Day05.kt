@@ -4,11 +4,9 @@ typealias Field = Array<IntArray>
 
 fun main() {
     data class Point(val x: Int, val y: Int) {
-        fun stepTo(to: Point): IntArray {
-            val d = IntArray(2)
-            d[0] = (to.x - x).sign
-            d[1] = (to.y - y).sign
-            return d
+        fun stepTo(to: Point): IntArray = IntArray(2).apply {
+            set(0, (to.x - x).sign)
+            set(1, (to.y - y).sign)
         }
 
         fun mark(field: Field) = field[y][x]++
