@@ -6,10 +6,11 @@ fun main() {
         crabs.forEachIndexed { target, i ->
             targets[target] = crabs.sumOf { it.fuel(target) }
         }
-        return targets.keys.minOf { index -> targets[index]?:0 }
+        return targets.keys.minOf { index -> targets[index] ?: 0 }
     }
-    fun part1(positions: List<Int>): Int = cheapestTarget(positions) { abs(this - it)}
-    fun part2(positions: List<Int>): Int = cheapestTarget(positions){ (0 .. abs(this-it)).sum() }
+
+    fun part1(positions: List<Int>): Int = cheapestTarget(positions) { abs(this - it) }
+    fun part2(positions: List<Int>): Int = cheapestTarget(positions) { (1..abs(this - it)).sum() }
 
     val testInput = readInput("Day07_test").first().split(",").map { it.toInt() }
     part1(testInput).also {
