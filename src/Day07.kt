@@ -2,15 +2,18 @@ import kotlin.math.abs
 
 fun main() {
     fun cheapestTarget(crabs: List<Int>, fuel: Int.(target: Int) -> Int): Int {
-        val targets = mutableMapOf<Int, Int>()
-        crabs.forEachIndexed { target, i ->
+        val targets = IntArray(crabs.size)
+        crabs.indices.forEach { target ->
             targets[target] = crabs.sumOf { it.fuel(target) }
         }
-        return targets.keys.minOf { index -> targets[index] ?: 0 }
+        return targets.minOf { it }
     }
 
     fun part1(positions: List<Int>): Int = cheapestTarget(positions) { abs(this - it) }
-    fun part2(positions: List<Int>): Int = cheapestTarget(positions) { (1..abs(this - it)).sum() }
+    fun part2(positions: List<Int>): Int = cheapestTarget(positions) {
+        val n = abs(this - it)
+        n * (n + 1) / 2
+    }
 
     val testInput = readInput("Day07_test").first().split(",").map { it.toInt() }
     part1(testInput).also {
