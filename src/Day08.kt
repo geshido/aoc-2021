@@ -12,7 +12,6 @@ private enum class Pos {
 
 private data class Entry(val digits: List<String>, val output: List<String>)
 
-private fun String.toCharSet() = toCharArray().toSet()
 private fun List<String>.toItems() = map {
     val (digits, output) = it.trim().split(" | ")
     Entry(digits.split(" "), output.split(" "))
@@ -69,13 +68,13 @@ fun main() {
 
         return input.sumOf { entry ->
             val words: List<Word> = entry.digits.map { word ->
-                word.toCharSet().associateWith { null }.toMutableMap()
+                word.toSet().associateWith { null }.toMutableMap()
             }
 
-            val one = entry.digits.find { it.length == 2 }!!.toCharSet()
-            val four = entry.digits.find { it.length == 4 }!!.toCharSet()
-            val seven = entry.digits.find { it.length == 3 }!!.toCharSet()
-            val eight = entry.digits.find { it.length == 7 }!!.toCharSet()
+            val one = entry.digits.find { it.length == 2 }!!.toSet()
+            val four = entry.digits.find { it.length == 4 }!!.toSet()
+            val seven = entry.digits.find { it.length == 3 }!!.toSet()
+            val eight = entry.digits.find { it.length == 7 }!!.toSet()
 
             words.setPos(seven.subtract(one).first(), Pos.Top)
             words.filter { word -> word.size == 6 }.forEach {
