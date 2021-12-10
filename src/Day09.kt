@@ -50,8 +50,7 @@ private fun List<List<Int>>.minimums(): Set<Pair<Int, Int>> {
     val s = mutableSetOf<Pair<Int, Int>>()
     for (rowIndex in indices) {
         for (index in this[rowIndex].indices) {
-            val neighbours = neighbours(rowIndex, index)
-            if (neighbours.all { (y, x) -> this[y][x] > this[rowIndex][index] }) {
+            if (neighbours(rowIndex, index).all { (y, x) -> this[y][x] > this[rowIndex][index] }) {
                 s += rowIndex to index
             }
         }
